@@ -1,5 +1,5 @@
-ligne = 6
-colonne = 6
+ligne = 7
+colonne = 7
 
 def grille(ligne: int) -> list:
     """fonction créant une grille en fonction des nombres de lignes i """
@@ -14,13 +14,17 @@ grill = grille(ligne)
 def coup_valide(joueur:tuple) -> bool:
     """fonction montrant si un coup est valide : position vide et possible"""
     i, j = joueur
-    if i not in range(0, ligne+1) or j not in range(0, colonne+1) or (grill[i][j]) != "*":
-        return False
-    return True
+    value = True
+    try:
+        if i not in range(0, ligne+1) or j not in range(0, colonne+1) or (grill[i][j]) != "*":
+            value = False
+    except:
+        value = False
+    return value
 #print(coup_valide((0,5)))
 
 def jouer():
-    if coup_valide(joueur) == True:
+    if coup_valide(joueur):
         i, j = joueur
         grill[i][j] = 1
 
@@ -28,4 +32,5 @@ joueur = input("entrer les cordoonéés du pion: ")
 joueur = tuple(int(x) for x in joueur.split(","))
 
 jouer()
-#print(grill)
+print(grill)
+
