@@ -1,1 +1,15 @@
 
+def grille(i:int) -> list:
+    """fonction créant une grille en fonction des nombres de lignes i """
+    list = []
+    for e in range(i + 1 ):
+        list.append([])
+    return list
+    
+    
+   def coup_valide(joueur:int,) -> bool:
+    """fonction montrant si un coup est valide : position vide et possible"""
+    i,j = joueur
+    if i not in [0,ligne] or j not in [0,colonne] or len(grille[i][j]) == 0:
+        return True
+    return False
