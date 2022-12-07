@@ -7,9 +7,9 @@ def grille(i:int) -> list:
     return list
     
     
-   def coup_valide(joueur:int,) -> bool:
+def coup_valide(joueur:int,) -> bool:
     """fonction montrant si un coup est valide : position vide et possible"""
     i,j = joueur
-    if i not in [0,ligne] or j not in [0,colonne] or len(grille[i][j]) == 0:
-        return True
-    return False
+    if i not in range(0,ligne+1) or j not in range (0,colonne+1) or len(grille[i][j]) == 0:
+        return False
+    return True
