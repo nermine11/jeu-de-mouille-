@@ -1,1 +1,4 @@
 functionalities in the program
+1- la fonction grille de parametre i:int renvoyant une liste :
+    """fonction créant une grille en fonction des nombres de lignes i """
+    
