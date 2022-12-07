@@ -4,3 +4,6 @@ functionalities in the program
 2-fonction jouer
     """fonction permetent de jouer"""
 
+3- coup_valide(joueur:int) -> bool:
+    """fonction montrant si un coup est valide : position vide et possible"""
+4- fonction moulin montrant s'il s'agit d'un moulin : 3 pions alignés vertical ou horizontal
