@@ -1,8 +1,6 @@
 functionalities in the program
 1- la fonction grille de parametre i:int renvoyant une liste :
     """fonction créant une grille en fonction des nombres de lignes i """
-  
-  
-  coup_valide(joueur:int) -> bool:
-    """fonction montrant si un coup est valide : position vide et possible"""
+2-fonction jouer
+    """fonction permetent de jouer"""
 
