@@ -1,1 +1,66 @@
+ligne = 6
+colonne = 6
 
+def grille(ligne: int) -> list:
+    """fonction créant une grille en fonction des nombres de lignes  """
+    list = []
+    for e in range(ligne + 1):
+        list.append(["*"] * 3)
+    list[3][2:2] = ["*","*","*"]
+    return list
+
+#print(grill)
+
+def coup_valide(joueur:tuple) -> bool:
+    """fonction montrant si un coup est valide : position vide et possible"""
+    i, j = joueur
+    value = True
+    try:
+        if i not in range(0, ligne+1) or j not in range(0, colonne+1) or (grill[i][j]) != "*":
+            value = False
+    except:
+        value = False
+    return value
+#print(coup_valide((0,5)))
+
+def jouer1():
+    if coup_valide(joueur1):
+        i, j = joueur1
+        grill[i][j] = 1
+        
+def jouer2():
+    if coup_valide(joueur2):
+        i, j = joueur2
+        grill[i][j] = 2
+
+def detecter_moullin():
+    ligne3_moulin=[[grill[3][0],grill[3][1],grill[3][2]],[grill[3][3],grill[3][4],grill[3][5]]]
+    for i in range(len(grill)):
+        if grill[i]==[1,1,1] or grill[i]==[2,2,2] :
+            return True
+        elif ligne3_moulin[0]==[1,1,1] or ligne3_moulin[1]==[1,1,1] or ligne3_moulin[0]==[2,2,2] or ligne3_moulin[1]==[2,2,2]:
+            return True
+    moulin_vertical=[[grill[0][0],grill[3][0],grill[6][0]],[grill[1][0],grill[3][1],grill[5][0]],[grill[2][0],grill[3][2],grill[4][0]],[grill[0][1],grill[1][1],grill[2][1]],[grill[4][1],grill[5][1],grill[6][1]],[grill[2][2],grill[3][3],grill[4][2]],[grill[1][2],grill[3][4],grill[5][2]],[grill[0][2],grill[3][5],grill[6][2]]]
+    for i in range(len(moulin_vertical)):
+        if moulin_vertical[i]==[1,1,1] or moulin_vertical[i]==[2,2,2]:
+            return True
+    return False
+        
+grill = grille(ligne)
+for i in range(18):
+    joueur1 = input("joueur1:entrer les cordoonéés du pion: ")
+    joueur1 = tuple(int(x) for x in joueur1.split(","))
+    jouer1()
+    print(grill)
+    if detecter_moullin():
+        print("moulinnnnnn")
+    else:
+        print("noooooooo")
+    joueur2 = input("joueur2:entrer les cordoonéés du pion: ")
+    joueur2 = tuple(int(x) for x in joueur2.split(","))
+    jouer2()
+    print(grill)
+    if detecter_moullin():
+        print("moulinnnnnn")
+    else:
+        print("noooooooo")
