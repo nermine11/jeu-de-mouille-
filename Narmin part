@@ -212,4 +212,4 @@ if __name__ == '__main__':
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion()
 
-            print(grill)
+            print(grill) 
