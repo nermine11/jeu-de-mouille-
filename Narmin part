@@ -17,7 +17,14 @@ def grille(ligne: int) -> list:
 
 
 def coup_valide(coordonnees: tuple) -> bool:
-    """fonction montrant si un coup est valide : position vide et possible"""
+    """fonction montrant si un coup est valide : position vide et possible
+    >>> coup_valide(0:0)
+    True
+    >>> coup_valide(1:0)
+    False
+    
+    """
+    
     i, j = coordonnees
     value = True
     try:
@@ -30,11 +37,13 @@ def coup_valide(coordonnees: tuple) -> bool:
 
 
 def jouer():
+    """ fonction permettant de joueur en insérant les coordonnes du pion à mettre dans la grille"""
     i, j = coordonnees
     grill[i][j] = joueur
 
 
 def verifie_mill_joueur1() -> bool:
+    """ fonction verifiant si le joueur1 un a crée un moulin, renvois True si oui et renvoie False si non """
     a, b = coordonnees
     if a < 3:
         lignes1[a].add((a, b))
@@ -80,6 +89,8 @@ def verifie_mill_joueur1() -> bool:
 
 
 def verifie_mill_joueur2() -> bool:
+    
+    """ fonction verifiant si le joueur2 un a crée un moulin, renvois True si oui et renvoie False si non """
     a, b = coordonnees
     if a < 3:
         lignes2[a].add((a, b))
@@ -125,11 +136,19 @@ def verifie_mill_joueur2() -> bool:
 
 
 def del_pion():
+    """ fonction enelevant un pion quand le joueuer a crée un moulin"""
     a, b = a_enlever
     grill[a][b] = 0
 
 
 def del_pion_valide(coordonnes: tuple) -> bool:
+    """ fonction verifiant si la position du pion à enlever est valide : si elle est possible dans la grille, s'il s'
+    agit d'une position occupée par le pion du l'adversaire et si elle n'appartient pas à un moulin
+    
+    >>> del_pion_valide(0:1)
+    False
+
+    """
     i, j = a_enlever
     value = True
     if joueur == 1:
@@ -224,7 +243,8 @@ if __name__ == '__main__':
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     except:
                         a_enlever = input(
-                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                            "1: colonne ") 
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     print(moulins_du_joueur1)
                     print(moulins_du_joueur2)
