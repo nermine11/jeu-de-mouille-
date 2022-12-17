@@ -1,66 +1,399 @@
-ligne = 6
-colonne = 6
-
 def grille(ligne: int) -> list:
-    """fonction créant une grille en fonction des nombres de lignes  """
+    """fonction créant une grille en fonction des nombres de lignes i
+    paramétres:
+    ligne : int
+    resultat:
+    liste de liste
+    >>> grille(7)
+    [[0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0]]
+
+    """
     list = []
     for e in range(ligne + 1):
-        list.append(["*"] * 3)
-    list[3][2:2] = ["*","*","*"]
+        list.append([0] * 7)
     return list
 
-#print(grill)
 
-def coup_valide(joueur:tuple) -> bool:
-    """fonction montrant si un coup est valide : position vide et possible"""
-    i, j = joueur
+def coup_valide(coordonnees: tuple) -> bool:
+    """fonction montrant si un coup est valide : position vide et possible
+    >>> coup_valide(0:0)
+    True
+    >>> coup_valide(1:0)
+    False
+    """
+    i, j = coordonnees
     value = True
     try:
-        if i not in range(0, ligne+1) or j not in range(0, colonne+1) or (grill[i][j]) != "*":
+        if (i in [0, 6] and j not in [0, 3, 6]) or (i in [1, 5] and j not in [1, 3, 5]) or (
+                i in [2, 4] and j not in [2, 3, 4]) or (grill[i][j] != 0):
             value = False
     except:
         value = False
     return value
-#print(coup_valide((0,5)))
 
-def jouer1():
-    if coup_valide(joueur1):
-        i, j = joueur1
-        grill[i][j] = 1
-        
-def jouer2():
-    if coup_valide(joueur2):
-        i, j = joueur2
-        grill[i][j] = 2
 
-def detecter_moullin():
-    ligne3_moulin=[[grill[3][0],grill[3][1],grill[3][2]],[grill[3][3],grill[3][4],grill[3][5]]]
-    for i in range(len(grill)):
-        if grill[i]==[1,1,1] or grill[i]==[2,2,2] :
+def jouer(coordonnees):
+    """ fonction permettant de joueur en insérant les coordonnes du pion à mettre dans la grille"""
+    i, j = coordonnees
+    grill[i][j] = joueur
+
+
+def verifie_mill_joueur1() -> bool:
+    """ fonction verifiant si le joueur1 un a crée un moulin, renvois True si oui et renvoie False si non """
+    a, b = coordonnees
+    if a < 3:
+        lignes1[a].add((a, b))
+        if lignes1[a] in possible_mills:
+            moulins_du_joueur1.extend(lignes1[a])
             return True
-        elif ligne3_moulin[0]==[1,1,1] or ligne3_moulin[1]==[1,1,1] or ligne3_moulin[0]==[2,2,2] or ligne3_moulin[1]==[2,2,2]:
+    elif a > 3:
+        lignes1[a + 1].add((a, b))
+        if lignes1[a + 1] in possible_mills:
+            moulins_du_joueur1.extend(lignes1[a + 1])
             return True
-    moulin_vertical=[[grill[0][0],grill[3][0],grill[6][0]],[grill[1][0],grill[3][1],grill[5][0]],[grill[2][0],grill[3][2],grill[4][0]],[grill[0][1],grill[1][1],grill[2][1]],[grill[4][1],grill[5][1],grill[6][1]],[grill[2][2],grill[3][3],grill[4][2]],[grill[1][2],grill[3][4],grill[5][2]],[grill[0][2],grill[3][5],grill[6][2]]]
-    for i in range(len(moulin_vertical)):
-        if moulin_vertical[i]==[1,1,1] or moulin_vertical[i]==[2,2,2]:
+    elif a == 3 and a > b:
+        lignes1[a].add((a, b))
+        if lignes1[a] in possible_mills:
+            moulins_du_joueur1.extend(lignes1[a])
             return True
-    return False
+    elif a == 3 and a < b:
+        lignes1[a + 1].add((a, b))
+        if lignes1[a + 1] in possible_mills:
+            moulins_du_joueur1.extend(lignes1[a + 1])
+            return True
+
+    if b < 3:
+        colonnes1[b].add((a, b))
+        if colonnes1[b] in possible_mills:
+            moulins_du_joueur1.extend(colonnes2[b])
+            return True
+    elif b > 3:
+        colonnes1[b + 1].add((a, b))
+        if colonnes1[b + 1] in possible_mills:
+            moulins_du_joueur1.extend(colonnes2[b + 1])
+            return True
+    elif b == 3 and b > a:
+        colonnes1[b].add((a, b))
+        if colonnes1[b] in possible_mills:
+            moulins_du_joueur1.extend(colonnes21[b])
+            return True
+    elif b == 3 and b < a:
+        colonnes1[b + 1].add((a, b))
+        if colonnes1[b + 1] in possible_mills:
+            moulins_du_joueur1.extend(colonnes21[b + 1])
+            return True
+
+
+def verifie_mill_joueur2() -> bool:
+
+    """ fonction verifiant si le joueur2 un a crée un moulin, renvois True si oui et renvoie False si non """
+    a, b = coordonnees
+    if a < 3:
+        lignes2[a].add((a, b))
+        if lignes2[a] in possible_mills:
+            moulins_du_joueur2.extend(lignes2[a])
+            return True
+    elif a > 3:
+        lignes2[a + 1].add((a, b))
+        if lignes2[a + 1] in possible_mills:
+            moulins_du_joueur2.extend(lignes2[a + 1])
+            return True
+    elif a == 3 and a > b:
+        lignes2[a].add((a, b))
+        if lignes2[a] in possible_mills:
+            moulins_du_joueur2.extend(lignes2[a])
+            return True
+    elif a == 3 and a < b:
+        lignes2[a + 1].add((a, b))
+        if lignes2[a + 1] in possible_mills:
+            moulins_du_joueur2.extend(lignes2[a + 1])
+            return True
+
+    if b < 3:
+        colonnes2[b].add((a, b))
+        if colonnes2[b] in possible_mills:
+            moulins_du_joueur2.extend(colonnes2[b])
+            return True
+    elif b > 3:
+        colonnes2[b + 1].add((a, b))
+        if colonnes2[b + 1] in possible_mills:
+            moulins_du_joueur2.extend(colonnes2[b + 1])
+            return True
+    elif b == 3 and b > a:
+        colonnes2[b].add((a, b))
+        if colonnes2[b] in possible_mills:
+            moulins_du_joueur2.extend(colonnes2[b])
+            return True
+    elif b == 3 and b < a:
+        colonnes2[b + 1].add((a, b))
+        if colonnes2[b + 1] in possible_mills:
+            moulins_du_joueur2.extend(colonnes2[b + 1])
+            return True
+
+
+def del_pion(a_enlever):
+    """ fonction enelevant un pion quand le joueuer a crée un moulin"""
+    a, b = a_enlever
+    grill[a][b] = 0
+
+
+def del_pion_valide() -> bool:
+    """ fonction verifiant si la position du pion à enlever est valide : si elle est possible dans la grille, s'il s'
+    agit d'une position occupée par le pion du l'adversaire et si elle n'appartient pas à un moulin
+
+    """
+    i, j = a_enlever
+    value = True
+    if joueur == 1:
+        try:
+            if (i in [0, 6] and j not in [0, 3, 6]) or (i in [1, 5] and j not in [1, 3, 5]) or (
+                    i in [2, 4] and j not in [2, 3, 4]) or (grill[i][j] != 2) or (a_enlever in moulins_du_joueur2):
+                value = False
+        except:
+            value = False
+        return value
+
+    elif joueur == 2:
+        try:
+            if (i in [0, 6] and j not in [0, 3, 6]) or (i in [1, 5] and j not in [1, 3, 5]) or (
+                    i in [2, 4] and j not in [2, 3, 4]) or (grill[i][j] != 1) or (a_enlever in moulins_du_joueur1):
+                value = False
+        except:
+            value = False
+        return value
+    
+def coordonnees_pion_a_deplacer_valides(coordonnees)-> bool : 
+    """ fonction verifiant si les coordonnées du pion à deplacer sont valides : pion occuppé par le joueur et positon possible"""
+    i, j = coordonnees
+    value = True
+    try:
+        if joueur==1:
+            if (i in [0, 6] and j not in [0, 3, 6]) or (i in [1, 5] and j not in [1, 3, 5]) or (
+                    i in [2, 4] and j not in [2, 3, 4]) or (grill[i][j] !=1 ):
+                value = False
+        else:
+            if (i in [0, 6] and j not in [0, 3, 6]) or (i in [1, 5] and j not in [1, 3, 5]) or (
+                    i in [2, 4] and j not in [2, 3, 4]) or (grill[i][j] !=2):
+                value = False
+    except:
+        value = False
+    return value    
+    
+    
+    
+def nouveau_coordonnees_du_pion_a_deplacer_valides(coordonnees,nv_coordonnees) -> bool:
+    """ fonction verifiant si les nouveaux coordonnées du pion à deplacer sont valides :
+        coup valides  et positon pas  déjà occuppé par le joueur actuel et position adjacente au pion"""
+    value=True
+    if coup_valide(nv_coordonnees):
+        if nv_coordonnees not in position_adjacente[coordonnees]:
+            value=False
+
+    return value
+
+def nmb_pion(nmb_pion1,nmb_pion2):
+    for i in range(len( grill)):
+        for elem in grill[i]:
+            if elem==1:
+                nmb_pion1+=1
+            elif elem==2:
+                nmb_pion2+=1
+
+#une faute a corriger pour la fonction precedente
+if __name__ == '__main__':
+    ligne = 7
+    colonne = 7
+    grill = grille(ligne)
+    possible_mills = [{(0, 0), (0, 3), (0, 6)},
+                      {(1, 1), (1, 3), (1, 5)},
+                      {(2, 2), (2, 3), (2, 4)},
+                      {(3, 0), (3, 1), (3, 2)},
+                      {(3, 4), (3, 5), (3, 6)},
+                      {(4, 2), (4, 3), (4, 4)},
+                      {(5, 1), (5, 3), (5, 5)},
+                      {(6, 0), (6, 3), (6, 6)},
+                      {(0, 0), (3, 0), (6, 0)},
+                      {(1, 1), (3, 1), (5, 1)},
+                      {(2, 2), (3, 2), (4, 2)},
+                      {(0, 3), (1, 3), (2, 3)},
+                      {(4, 3), (5, 3), (6, 3)},
+                      {(2, 4), (3, 4), (4, 4)},
+                      {(1, 5), (3, 5), (5, 5)},
+                      {(0, 6), (3, 6), (6, 6)}]
+
+    lignes1 = [set(), set(), set(), set(), set(), set(), set(), set()]
+    colonnes1 = [set(), set(), set(), set(), set(), set(), set(), set()]
+    moulins_du_joueur1 = []
+    lignes2 = [set(), set(), set(), set(), set(), set(), set(), set()]
+    colonnes2 = [set(), set(), set(), set(), set(), set(), set(), set()]
+    moulins_du_joueur2 = []
+    print("On commence le jeu ! ")
+    for i in range(5):
+        for joueur in range(1, 3):
+            print("Tour du joueur", joueur)
+            try:
+                coordonnees = input("entrer les cordoonéés du pion séparées par 2 points ")
+                coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+            except:
+                coordonnees = input(
+                    "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+            while not coup_valide(coordonnees):
+                coordonnees = input("entrer des cordoonéés du pion valides: ")
+                coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+            jouer(coordonnees)
+            
+
+            if joueur == 1:
+                if verifie_mill_joueur1():
+                    print("moulin!")
+                    print("Enlevez un pion de votre adversaire joueur", joueur)
+                    print(moulins_du_joueur1)
+                    print(moulins_du_joueur2)
+
+                    try:
+                        a_enlever = input("entrer les coordonnes du pion à enlever: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    except:
+                        a_enlever = input(
+                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    while not del_pion_valide():
+                        a_enlever = input("entrer des cordoonéés du pion valides: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    del_pion(a_enlever)
+
+            else:
+                if verifie_mill_joueur2():
+                    print("moulin!")
+                    print("Enlevez un pion de votre adversaire joueur", joueur)
+                    print(moulins_du_joueur1)
+                    print(moulins_du_joueur2)
+                    try:
+                        a_enlever = input("entrer les coordonnes du pion à enlever: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    except:
+                        a_enlever = input(
+                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                            "1: colonne ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    while not del_pion_valide():
+                        a_enlever = input("entrer des cordoonéés du pion valides: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    del_pion(a_enlever)
+
+            print(grill)
+            
+  
+  
+  
+  
+
+position_adjacente={(0,0): [(0,3), (3,0)],
+                     (0,3) : [(0,0), (0,6), (1,3)],
+                     (0,6) : [(0,3), (3,6)],
+                     (1,1): [(1,3), (3,1)],
+                     (1,3) : [(1,1),(1,5),(0,3),(2,3)],
+                     (1,5) : [(1,3),(3,5)],
+                     (2,2) : [(2,3),(3,2)],
+                     (2,3) : [(2,2),(2,4),(1,3)],
+                     (2,4) : [(2,3), (3,4)],
+                     (3,0) :  [(3,1),(6,0),(0,0)],
+                     (3,1) : [(3,0),(3,2),(1,1),(5,1)],
+                     (3,2) : [(3,1),(2,2),(4,2)],
+                     (3,4):[(2,4),(4,4)],
+                     (3,5):[(1,5),(5,5),(3,4),(3,6)],
+                     (3,6):[(0,6),(6,6)],
+                     (4,2):[(3,2),(4,3)],
+                     (4,3):[(4,2),(4,4),(5,3)],
+                     (4,4):[(4,3),(3,4)],
+                     (5,1):[(3,1),(5,3)],
+                     (5,3):[(5,1),(5,5),(4,3),(6,3)],
+                     (5,5):[(3,5),(5,3)],
+                     (6,0):[(3,0),(6,3)],
+                     (6,3):[(6,0),(6,6),(5,3)],
+                     (6,6):[(3,6),(6,3)]}
+
+nmb_pion1=0
+nmb_pion2=0
+while nmb_pion1!=3 and nmb_pion2!=3:
+    nmb_pion1=0
+    nmb_pion2=0
+    for joueur in range(1, 3):
+        print("Tour du joueur", joueur)
+        try:
+            coordonnees = input("entrer les cordoonéés du pion a deplcer séparées par 2 points ")
+            coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+        except:
+            coordonnees = input(
+                "entrer les cordoonéés du pion a deplcer séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+            coordonnees = tuple(int(x) for x in coordonnees.split(":"))
         
-grill = grille(ligne)
-for i in range(18):
-    joueur1 = input("joueur1:entrer les cordoonéés du pion: ")
-    joueur1 = tuple(int(x) for x in joueur1.split(","))
-    jouer1()
-    print(grill)
-    if detecter_moullin():
-        print("moulinnnnnn")
-    else:
-        print("noooooooo")
-    joueur2 = input("joueur2:entrer les cordoonéés du pion: ")
-    joueur2 = tuple(int(x) for x in joueur2.split(","))
-    jouer2()
-    print(grill)
-    if detecter_moullin():
-        print("moulinnnnnn")
-    else:
-        print("noooooooo")
+
+        if coordonnees_pion_a_deplacer_valides(coordonnees):
+            try:
+                nv_coordonnees = input("entrer les nv cordoonéés du pion a deplacer séparées par 2 points ")
+                nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+            except:
+                nv_coordonnees = input(
+                "entrer les nv cordoonéés du pion a deplacer séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                nv_coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+
+            while not nouveau_coordonnees_du_pion_a_deplacer_valides(coordonnees,nv_coordonnees):
+                try:
+                    nv_coordonnees = input("entrer les nv cordoonéés du pion a deplacer séparées par 2 points ")
+                    nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                except:
+                    nv_coordonnees = input(
+                    "entrer les nv cordoonéés du pion a deplacer séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                    nv_coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+            jouer(nv_coordonnees)
+            del_pion(coordonnees)
+            print(grill)
+
+                
+                
+                
+                
+            if joueur == 1:
+                if verifie_mill_joueur1():
+                    print("moulin!")
+                    print("Enlevez un pion de votre adversaire joueur", joueur)
+                    print(moulins_du_joueur1)
+                    print(moulins_du_joueur2)
+
+                    try:
+                        a_enlever = input("entrer les coordonnes du pion à enlever: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    except:
+                        a_enlever = input(
+                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    while not del_pion_valide():
+                        a_enlever = input("entrer des cordoonéés du pion valides: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    del_pion(a_enlever)
+                    print(grill)
+
+            else:
+                if verifie_mill_joueur2():
+                    print("moulin!")
+                    print("Enlevez un pion de votre adversaire joueur", joueur)
+                    print(moulins_du_joueur1)
+                    print(moulins_du_joueur2)
+                    try:
+                        a_enlever = input("entrer les coordonnes du pion à enlever: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    except:
+                        a_enlever = input(
+                            "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                            "1: colonne ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    while not del_pion_valide():
+                        a_enlever = input("entrer des cordoonéés du pion valides: ")
+                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                    del_pion(a_enlever)
+                    print(grill)
+    
+        nmb_pion(nmb_pion1,nmb_pion2)
