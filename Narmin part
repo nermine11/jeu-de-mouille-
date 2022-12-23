@@ -194,6 +194,18 @@ def coordonnees_pion_a_deplacer_valides() -> bool:
                 value = False
             return value
     return False
+def coordonnees_pion_a_deplacer_possibles()-> bool:
+    """ fonction verifiant si les coordonnées du pion à deplacer sont possibles : ses positions adjacentes ne sont pas 
+        tous occupées """
+    if len(a_deplacer) == 2:
+        for elem in positions_adjacentes[a_deplacer]:
+            a, b = elem
+            if grill[a][b] != 0:
+                value = True
+            else:
+                value = False
+    return value
+        
 
 
 
@@ -212,7 +224,6 @@ def nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(coordonne : tuple) -> 
     return False
 
 
-
 def change_position():
     """ change les coordonnes de la position du nouveau pion deplacé"""
     a, b = a_deplacer
@@ -228,6 +239,33 @@ def change_position():
         pions_joueur2.remove((a, b))
         pions_joueur2.append((c, d))
 
+
+
+def teste_si_joueur1_est_bloqué():
+    """ fonction testant si le joueur 1 est incapable de se déplacer : s'il n'ya pas de positions adjacentes pour aucun
+        de ses pions lors de la phase 2"""
+
+    for i in pions_joueur1:
+        for elem in positions_adjacentes[i]:
+            a, b = elem
+            if grill[a][b] != 0:
+                value = True
+            else:
+                value = False
+    return value
+
+def teste_si_joueur2_est_bloqué():
+    """ fonction testant si le joueur 2 est incapable de se déplacer : s'il n'ya pas de positions adjacentes pour aucun
+        de ses pions lors de la phase 2"""
+
+    for i in pions_joueur2:
+        for elem in positions_adjacentes[i]:
+            a, b = elem
+            if grill[a][b] != 0:
+                value = True
+            else:
+                value = False
+    return value
 
 if __name__ == '__main__':
     ligne = 7
@@ -282,6 +320,7 @@ if __name__ == '__main__':
     lignes2 = [set(), set(), set(), set(), set(), set(), set(), set()]
     colonnes2 = [set(), set(), set(), set(), set(), set(), set(), set()]
     moulins_du_joueur2 = []
+    #phase 1
     print("On commence le jeu ! ")
     for i in range(9):
         for joueur in range(1, 3):
@@ -339,8 +378,18 @@ if __name__ == '__main__':
             print(grill)
     print(pions_joueur1)
     print(pions_joueur2)
+    
+    #phase 2
     while len(pions_joueur1) > 3 and len(pions_joueur2) > 3:
-        for joueur in range(1,3):
+        for joueur in range(1,3): 
+            # vérifiant si un des joueur est incapable de se déplacer(pas de positions adjacentes vides)
+            if joueur == 1 and teste_si_joueur1_est_bloqué():
+                print("le joueur 1 est incapable de se déplacer")
+                print( "le joueur 2 gagne ! ")
+            elif joueur == 2 and teste_si_joueur2_est_bloqué():
+                    print("le joueur 2 est incapable de se déplacer")
+                    print("le joueur 1 gagne ! ")
+                
             print("On commence la phase 2 !")
             print("Tour du joueur ", joueur )
             try:
@@ -353,7 +402,10 @@ if __name__ == '__main__':
             while not coordonnees_pion_a_deplacer_valides() :
                 a_deplacer = input("entrer des cordoonéés du pion valides: ")
                 a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-
+            # nouvelle fonctionnalité : voir si le pion peut se déplacer
+            while not coordonnees_pion_a_deplacer_possibles():
+                a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             try:
                 nv_coordonnees = input("entrer les nouveaux coordonnes du pion : ")
                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
@@ -486,3 +538,10 @@ if __name__ == '__main__':
                 pions_joueur1.remove(a_enlever)
 
 
+    #fin de la partie
+    
+    if pions_joueur1 == 2 :
+        print("Le joueur 2 a gagné")
+    elif pions_joueur2 == 2 :
+        print("Le joueur 2 a gagné")
+        
