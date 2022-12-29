@@ -69,22 +69,22 @@ def verifie_mill_joueur1(coordoneess: tuple) -> bool:
     if b < 3:
         colonnes1[b].add((a, b))
         if colonnes1[b] in possible_mills:
-            moulins_du_joueur1.extend(colonnes2[b])
+            moulins_du_joueur1.extend(colonnes1[b])
             value= True
     elif b > 3:
         colonnes1[b + 1].add((a, b))
         if colonnes1[b + 1] in possible_mills:
-            moulins_du_joueur1.extend(colonnes2[b + 1])
+            moulins_du_joueur1.extend(colonnes1[b + 1])
             value= True
     elif b == 3 and b > a:
         colonnes1[b].add((a, b))
         if colonnes1[b] in possible_mills:
-            moulins_du_joueur1.extend(colonnes21[b])
+            moulins_du_joueur1.extend(colonnes1[b])
             value= True
     elif b == 3 and b < a:
         colonnes1[b + 1].add((a, b))
         if colonnes1[b + 1] in possible_mills:
-            moulins_du_joueur1.extend(colonnes21[b + 1])
+            moulins_du_joueur1.extend(colonnes1[b + 1])
             value= True
     return value
 
