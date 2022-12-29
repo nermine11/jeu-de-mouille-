@@ -32,7 +32,7 @@ def coup_valide(coordonnees: tuple) -> bool:
             value = False
     except:
         value = False
-    return False
+    return value
 
 
 def jouer():
