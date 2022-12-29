@@ -73,12 +73,12 @@ def verifie_mill_joueur1(coordonnees: tuple) -> bool:
     if b < 3:
         colonnes1[b].add((a, b))
         if colonnes1[b] in possible_mills:
-            moulins_du_joueur1.extend(colonnes2[b])
+            moulins_du_joueur1.extend(colonnes1[b])
             value = True
     elif b > 3:
         colonnes1[b + 1].add((a, b))
         if colonnes1[b + 1] in possible_mills:
-            moulins_du_joueur1.extend(colonnes2[b + 1])
+            moulins_du_joueur1.extend(colonnes1[b + 1])
             value = True
     elif b == 3 and b > a:
         colonnes1[b].add((a, b))
@@ -521,6 +521,8 @@ if __name__ == '__main__':
             print(colonnes1)
             print(lignes2)
             print(colonnes2)
+            print(moulins_du_joueur1)
+            print(moulins_du_joueur2)
     print(pions_joueur1)
     print(pions_joueur2)
 
@@ -528,7 +530,7 @@ if __name__ == '__main__':
     print("On commence la phase 2 !")
     while len(pions_joueur1) >= 3 and len(pions_joueur2) >= 3:
         for joueur in range(1, 3):
-            # vérifiant si un des joueurs est incapable de se déplacer(pas de positions adjacentes vides)
+            # vérifiant si l'un des joueurs est incapable de se déplacer(pas de positions adjacentes vides)
             if joueur == 1 and teste_si_joueur1_est_bloque():
                 print("le joueur 1 est incapable de se déplacer")
                 print("le joueur 2 gagne ! ")
