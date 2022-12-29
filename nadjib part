@@ -30,9 +30,8 @@ def coup_valide(coordonnees: tuple) -> bool:
                 i in [2, 4] and j not in [2, 3, 4]) or (
                 i in [3] and j not in [0, 1, 2, 4, 5,6]) or (grill[i][j] != 0):
             value = False
-        except:
-            value = False
-        return value
+    except:
+        value = False
     return False
 
 
