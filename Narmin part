@@ -667,6 +667,8 @@ if __name__ == '__main__':
                     pions_joueur2.remove(a_enlever)
                     print(pions_joueur1)
                     print(pions_joueur2)
+                    if len(pions_joueur2) < 3:
+                        break
 
             if joueur == 2 and len(pions_joueur2) > 3:
                 try:
