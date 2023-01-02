@@ -239,7 +239,7 @@ def del_pion_joueur2(pion: tuple):
     elif b == 3 and b < a:
         if colonnes2[b + 1] in possible_mills:
             for i in range(0, 3):
-                moulins_du_joueur2.remove(list(colonnes2[b])[i])
+                moulins_du_joueur2.remove(list(colonnes2[b+1])[i])
         colonnes2[b + 1].remove((a, b))
 
 
@@ -420,6 +420,28 @@ def teste_si_joueur2_est_bloque():
     return value
 
 
+def affichage(grill):
+    for i in  range(len(grill)):
+        for j in range(7):
+
+            if(i in [0, 6] and j in [1, 2, 4, 5]) or (i in [1, 5] and j  in [2,4]):
+                print("—  " ,end ="")
+            elif (i in [1, 5] and j  in [0,6]) or (i in [2, 4] and j  in [0,1,5,6]) :
+                print("|  " ,end ="")
+            elif (i in [3] and j  in [3]):
+                print(".  " ,end ="")
+            else:
+                if grill[i][j]==1:
+                    print("1  " ,end ="")
+                elif grill[i][j]==2:
+                    print("2  " ,end ="")
+                else:
+                    print("0  " ,end ="")
+                    
+                
+        print("\n")
+
+
 if __name__ == '__main__':
     ligne = 7
     colonne = 7
@@ -477,6 +499,7 @@ if __name__ == '__main__':
     print("On commence le jeu ! ")
     for i in range(9):
         for joueur in range(1, 3):
+            affichage(grill)
             print("Tour du joueur", joueur)
             try:
                 coordonnees = input("entrer les cordoonéés du pion séparées par 2 points ")
@@ -489,14 +512,14 @@ if __name__ == '__main__':
                 coordonnees = input("entrer des cordoonéés du pion valides: ")
                 coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             jouer()
+            
 
             if joueur == 1:
                 pions_joueur1.append(coordonnees)
                 if verifie_mill_joueur1(coordonnees):
                     print("moulin!")
+                    affichage(grill)
                     print("Enlevez un pion de votre adversaire joueur", joueur)
-                    print(moulins_du_joueur1)
-                    print(moulins_du_joueur2)
                     try:
                         a_enlever = input("entrer les coordonnes du pion à enlever: ")
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
@@ -514,17 +537,16 @@ if __name__ == '__main__':
                             a_enlever = input("entrer des cordoonéés du pion valides: ")
                             a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion_joueur2(a_enlever)
-                    pions_joueur2.remove(a_enlever)
-                    print(lignes2)
+                    pions_joueur2.remove(a_enlever)  
 
 
             else:
                 pions_joueur2.append(coordonnees)
                 if verifie_mill_joueur2(coordonnees):
                     print("moulin!")
+                    affichage(grill)
                     print("Enlevez un pion de votre adversaire joueur", joueur)
-                    print(moulins_du_joueur1)
-                    print(moulins_du_joueur2)
+                    
                     try:
                         a_enlever = input("entrer les coordonnes du pion à enlever: ")
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
@@ -545,15 +567,15 @@ if __name__ == '__main__':
                     del_pion_joueur1(a_enlever)
                     pions_joueur1.remove(a_enlever)
 
-            print(grill)
-    print(pions_joueur1)
-    print(pions_joueur2)
+
 # vérifiant si un des joueur est incapable de se déplacer(pas de positions adjacentes vides)
 if  teste_si_joueur1_est_bloque():
     print("le joueur 1 est incapable de se déplacer")
+    affichage(grill)
     print("le joueur 2 gagne ! ")
 elif teste_si_joueur2_est_bloque():
     print("le joueur 2 est incapable de se déplacer")
+    affichage(grill)
     print("le joueur 1 gagne ! ")
 
 # phase 2
@@ -561,6 +583,7 @@ else:
     print("On commence la phase 2 !")
     while len(pions_joueur1) > 2 and len(pions_joueur2) > 2:
         for joueur in range(1, 3):
+            affichage(grill)
             print("Tour du joueur ", joueur)
             try:
                 a_deplacer = input("entrer les coordonnes du pion à déplacer: ")
@@ -614,6 +637,7 @@ else:
                 del_pion_joueur1(a_deplacer)
                 if verifie_mill_joueur1(nv_coordonnees):
                     print("moulin!")
+                    affichage(grill)
                     print("Enlevez un pion de votre adversaire joueur", joueur)
                     try:
                         a_enlever = input("entrer les coordonnes du pion à enlever: ")
@@ -635,21 +659,22 @@ else:
                     pions_joueur2.remove(a_enlever)
                     if teste_si_joueur2_est_bloque():
                         print("le joueur 2 est incapable de se déplacer")
+                        affichage(grill)
                         print("le joueur 1 gagne ! ")
                         exit()
                 else:
                     if teste_si_joueur2_est_bloque():
                         print("le joueur 2 est incapable de se déplacer")
+                        affichage(grill)                        
                         print("le joueur 1 gagne ! ")
                         exit()
-
+            
             else:
                 del_pion_joueur2(a_deplacer)
                 if verifie_mill_joueur2(nv_coordonnees):
                     print("moulin!")
+                    affichage(grill)
                     print("Enlevez un pion de votre adversaire joueur", joueur)
-                    print(moulins_du_joueur1)
-                    print(moulins_du_joueur2)
                     try:
                         a_enlever = input("entrer les coordonnes du pion à enlever: ")
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
@@ -671,15 +696,18 @@ else:
                     pions_joueur1.remove(a_enlever)
                     if teste_si_joueur1_est_bloque():
                         print("le joueur 2 est incapable de se déplacer")
+                        affichage(grill)
                         print("le joueur 1 gagne ! ")
                         exit()
                 else:
                     if teste_si_joueur1_est_bloque():
                         print("le joueur 2 est incapable de se déplacer")
+                        affichage(grill)
                         print("le joueur 1 gagne ! ")
                         exit()
             if len(pions_joueur2)==2:
                 break
+            
 
     # fin de la partie
 
@@ -687,4 +715,3 @@ if len(pions_joueur1) == 2:
     print("Le joueur 2 a gagné")
 elif len(pions_joueur2) == 2:
     print("Le joueur 1 a gagné")
-
