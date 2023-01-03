@@ -445,6 +445,7 @@ def affichage(grill):
 if __name__ == '__main__':
     ligne = 7
     colonne = 7
+    nombre_du_pion_pour_chaque_joueur=9
     grill = grille(ligne)
     pions_joueur1 = []
     pions_joueur2 = []
@@ -497,7 +498,7 @@ if __name__ == '__main__':
     moulins_du_joueur2 = []
     # phase 1
     print("On commence le jeu ! ")
-    for i in range(9):
+    for i in range(nombre_du_pion_pour_chaque_joueur):
         for joueur in range(1, 3):
             affichage(grill)
             print("Tour du joueur", joueur)
