@@ -484,6 +484,7 @@ def affichage(grill):
 if __name__ == '__main__':
     choi_du_plateau=2
     nombre_du_pion_pour_chaque_joueur=3
+    phase_3=False
     if choi_du_plateau==1:
         ligne = 7
         colonne = 7
@@ -669,11 +670,21 @@ else:
                     while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
                         a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
                         a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                else:
+                    if phase_3==False:
+                        while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
+                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             if joueur==2:
                 if len(pions_joueur2)!=3 :
                     while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
                         a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
                         a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                else:
+                    if phase_3==False:
+                        while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
+                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             try:
                 nv_coordonnees = input("entrer les nouveaux coordonnes du pion : ")
                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
@@ -682,7 +693,7 @@ else:
                     "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
             if joueur ==1:
-                if len(pions_joueur1)!=3 :
+                if len(pions_joueur1)!=3 or phase_3==False :
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides():
                         nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
                         nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
@@ -690,8 +701,9 @@ else:
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(nv_coordonnees):
                         nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
                         nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+
             if joueur ==2:
-                if len(pions_joueur2)!=3 :
+                if len(pions_joueur2)!=3 or phase_3==False :
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides():
                         nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
                         nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
