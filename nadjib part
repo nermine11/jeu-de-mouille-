@@ -694,9 +694,13 @@ else:
                     "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
                 a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             while not coordonnees_pion_a_deplacer_valides():
-                a_deplacer = input("entrer des cordoonéés du pion valides: ")
-                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-            # nouvelle fonctionnalité : voir si le pion peut se déplacer
+                try:
+                    a_deplacer = input("entrer des cordoonéés du pion valides: ")
+                    a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                except:
+                    a_deplacer = input(
+                        "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                    a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             if joueur==1:
                 if len(pions_joueur1)!=3:
                     while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
