@@ -320,6 +320,9 @@ def del_pion_valide_pourmoullin() -> bool:
 
 
 def pion_exterieur_moullin():
+    """ fonction verifiant si sagit un pion hor les moulins composé pour pouvoir enlever un pion dans un moulin de l'adversaire
+        ou non """
+    
     if joueur==2:
         value=True
         for elem in pions_joueur1:
@@ -576,8 +579,13 @@ if __name__ == '__main__':
                     "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
                 coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             while not coup_valide(coordonnees):
-                coordonnees = input("entrer des cordoonéés du pion valides: ")
-                coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+                try:
+                    coordonnees = input("entrer des cordoonées du pion valides: ")
+                    coordonnees = tuple(int(x) for x in coordonnees.split(":"))
+                except:
+                    coordonnees = input(
+                        "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                    coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             jouer()
             
 
@@ -597,13 +605,25 @@ if __name__ == '__main__':
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     if pion_exterieur_moullin():
                         while not del_pion_valide():
-                            a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonées du pion valides: ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_enlever = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                                    "1: colonne ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
 
                     else:
                         while not del_pion_valide_pourmoullin():
-                            a_enlever = input("entrer des cordoonéés du pion valides: ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonées du pion valides: ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_enlever = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                                    "1: colonne ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion_joueur2(a_enlever)
                     pions_joueur2.remove(a_enlever)  
 
@@ -626,13 +646,25 @@ if __name__ == '__main__':
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     if pion_exterieur_moullin():
                         while not del_pion_valide():
-                            a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonées du pion valides: ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_enlever = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                                    "1: colonne ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
 
                     else:
                         while not del_pion_valide_pourmoullin():
-                            a_enlever = input("entrer des cordoonéés du pion valides: ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonées du pion valides: ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_enlever = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , "
+                                    "1: colonne ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion_joueur1(a_enlever)
                     pions_joueur1.remove(a_enlever)
 
@@ -668,23 +700,43 @@ else:
             if joueur==1:
                 if len(pions_joueur1)!=3:
                     while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
-                        a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
-                        a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        try:
+                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                 else:
                     if phase_3==False:
                         while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
-                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
-                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                            try:
+                                a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             if joueur==2:
                 if len(pions_joueur2)!=3 :
                     while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
-                        a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
-                        a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        try:
+                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                 else:
                     if phase_3==False:
                         while not coordonnees_pion_a_deplacer_possibles() or not coordonnees_pion_a_deplacer_valides():
-                            a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
-                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                            try:
+                                a_deplacer = input("entrer des cordoonéés du pion qui a des positions adjacentes vides: ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             try:
                 nv_coordonnees = input("entrer les nouveaux coordonnes du pion : ")
                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
@@ -695,22 +747,42 @@ else:
             if joueur ==1:
                 if len(pions_joueur1)!=3 or phase_3==False :
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides():
-                        nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
-                        nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        try:
+                            nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                            nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                 else:
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(nv_coordonnees):
-                        nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
-                        nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        try:
+                            nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                            nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
             if joueur ==2:
                 if len(pions_joueur2)!=3 or phase_3==False :
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides():
-                        nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
-                        nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        try:
+                            nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                            nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                 else:
                     while not nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(nv_coordonnees):
-                        nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
-                        nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        try:
+                            nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                            nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
             change_position()
 
             if joueur == 1:
@@ -728,13 +800,23 @@ else:
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     if pion_exterieur_moullin():
                         while not del_pion_valide():
-                            a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
                     else:
                         while not del_pion_valide_pourmoullin():
-                            a_enlever = input("entrer des cordoonéés du pion valides: ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                                nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                     del_pion_joueur2(a_enlever)
                     pions_joueur2.remove(a_enlever)
                     if teste_si_joueur2_est_bloque():
@@ -765,13 +847,23 @@ else:
                         a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     if pion_exterieur_moullin():
                         while not del_pion_valide():
-                            a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                a_enlever = input("entrer des cordoonéés du pion valides(exterieur d'un moullin): ")
+                                a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
                     else:
                         while not del_pion_valide_pourmoullin():
-                            a_enlever = input("entrer des cordoonéés du pion valides: ")
-                            a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                            try:
+                                nv_coordonnees = input("entrer des cordoonéés du pion valides: ")
+                                nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
+                            except:
+                                a_deplacer = input(
+                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                     del_pion_joueur1(a_enlever)
                     pions_joueur1.remove(a_enlever)
                     if teste_si_joueur1_est_bloque():
