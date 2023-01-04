@@ -1,6 +1,3 @@
-
-
-
 def grille(ligne: int) -> list:
     """fonction créant une grille en fonction des nombres de lignes i
     paramétres:
@@ -511,19 +508,19 @@ if __name__ == '__main__':
             affichage(grill)
             print("Tour du joueur", joueur)
             try:
-                coordonnees = input("entrer les cordoonéés du pion séparées par 2 points ")
+                coordonnees = input("entrer les cordoonées du pion séparées par 2 points ")
                 coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             except:
                 coordonnees = input(
-                    "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
                 coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             while not coup_valide(coordonnees):
                 try:
-                    coordonnees = input("entrer des cordoonéés du pion valides: ")
+                    coordonnees = input("entrer des cordoonées du pion valides: ")
                     coordonnees = tuple(int(x) for x in coordonnees.split(":"))
                 except:
                     coordonnees = input(
-                        "entrer les cordoonéés du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                        "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
                     coordonnees = tuple(int(x) for x in coordonnees.split(":"))
             jouer()
 
@@ -622,68 +619,48 @@ if __name__ == '__main__':
             for joueur in range(1, 3):
                 affichage(grill)
                 print("Tour du joueur ", joueur)
-                try:
-                    a_deplacer = input("entrer les coordonnées du pion à déplacer: ")
-                    a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                except:
-                    a_deplacer = input(
-                        "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                    a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                while not coordonnees_pion_a_deplacer_valides():
-                    try:
-                        a_deplacer = input("entrer des cordoonées du pion valides: ")
-                        a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                    except:
-                        a_deplacer = input(
-                            "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                        a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
-                # nouvelle fonctionnalité : voir si le pion peut se déplacer
                 if joueur == 1:
-                    if len(pions_joueur1) != 3:
-                        # jai ajouté car le message differe
-                        while not coordonnees_pion_a_deplacer_valides():
-                            try:
-                                a_deplacer = input("entrer des cordoonées du pion valides: ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                            except:
-                                a_deplacer = input(
-                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                    while not coordonnees_pion_a_deplacer_valides():
+                        try:
+                            a_deplacer = input("entrer des cordoonées du pion valides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
-
-                        # nouvelle fonctionnalité : voir si le pion peut se déplacer
-                        while not coordonnees_pion_a_deplacer_possibles():
-                            try:
-                                a_deplacer = input(
-                                    "entrer des cordoonées du pion qui a des positions adjacentes vides: ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                            except:
-                                a_deplacer = input(
-                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                    # nouvelle fonctionnalité : voir si le pion peut se déplacer
+                    while not coordonnees_pion_a_deplacer_possibles():
+                        try:
+                            a_deplacer = input(
+                                "entrer des cordoonées du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
                 if joueur == 2:
-                    if len(pions_joueur2) != 3:
-                        while not coordonnees_pion_a_deplacer_valides():
-                            try:
-                                a_deplacer = input("entrer des cordoonées du pion valides: ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                            except:
-                                a_deplacer = input(
-                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                    while not coordonnees_pion_a_deplacer_valides():
+                        try:
+                            a_deplacer = input("entrer des cordoonées du pion valides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                    # nouvelle fonctionnalité : voir si le pion peut se déplacer
+                    while not coordonnees_pion_a_deplacer_possibles():
+                        try:
+                            a_deplacer = input(
+                                "entrer des cordoonées du pion qui a des positions adjacentes vides: ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
+                        except:
+                            a_deplacer = input(
+                                "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
+                            a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
 
-                        # nouvelle fonctionnalité : voir si le pion peut se déplacer
-                        while not coordonnees_pion_a_deplacer_possibles():
-                            try:
-                                a_deplacer = input(
-                                    "entrer des cordoonées du pion qui a des positions adjacentes vides: ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
-                            except:
-                                a_deplacer = input(
-                                    "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne , 1: colonne ")
-                                a_deplacer = tuple(int(x) for x in a_deplacer.split(":"))
                 try:
                     nv_coordonnees = input("entrer les nouveaux coordonnées du pion : ")
                     nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
@@ -702,6 +679,7 @@ if __name__ == '__main__':
                                                        "O:1 --> 0 : ligne , 1: colonne ")
                                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
                     else:
+                        print("Vous pouvez placer vos pions dans n'importe quelle intersection")
                         while not nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(nv_coordonnees):
                             try:
                                 nv_coordonnees = input("entrer des cordoonées du pion valides: ")
@@ -721,6 +699,7 @@ if __name__ == '__main__':
                                                        "O:1 --> 0 : ligne , 1: colonne ")
                                 nv_coordonnees = tuple(int(x) for x in nv_coordonnees.split(":"))
                     else:
+                        print("Vous pouvez placer vos pions dans n'importe quelle intersection")
                         while not nouveau_coordonnees_du_pion_a_deplacer_valides_phase3(nv_coordonnees):
                             try:
                                 nv_coordonnees = input("entrer des cordoonées du pion valides: ")
@@ -774,8 +753,7 @@ if __name__ == '__main__':
                             affichage(grill)
                             print("le joueur 1 gagne ! ")
                             exit()
-                    else:
-                        if teste_si_joueur2_est_bloque():
+                    elif teste_si_joueur2_est_bloque():
                             print("le joueur 2 est incapable de se déplacer")
                             affichage(grill)
                             print("le joueur 1 gagne ! ")
@@ -811,14 +789,14 @@ if __name__ == '__main__':
                         else:
 
                             while not del_pion_valide_pour_moulin():
-                                    try:
-                                        a_enlever = input("entrer des cordoonées du pion valides: ")
-                                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
-                                    except:
-                                        a_enlever = input(
-                                            "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne ,"
-                                            " 1: colonne ")
-                                        a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                                try:
+                                    a_enlever = input("entrer des cordoonées du pion valides: ")
+                                    a_enlever = tuple(int(x) for x in a_enlever.split(":"))
+                                except:
+                                    a_enlever = input(
+                                        "entrer les cordoonées du pion séparées par 2 points \nexemple O:1 --> 0 : ligne ,"
+                                        " 1: colonne ")
+                                    a_enlever = tuple(int(x) for x in a_enlever.split(":"))
 
                         del_pion_joueur1(a_enlever)
                         pions_joueur1.remove(a_enlever)
@@ -833,7 +811,7 @@ if __name__ == '__main__':
                             affichage(grill)
                             print("le joueur 2 gagne ! ")
                             exit()
-                #don't think this is needed
+                # don't think this is needed
                 if len(pions_joueur2) == 2:
                     break
 
@@ -843,4 +821,5 @@ if __name__ == '__main__':
         print("Le joueur 2 a gagné !")
     elif len(pions_joueur2) == 2:
         print("Le joueur 1 a gagné !")
+
 
