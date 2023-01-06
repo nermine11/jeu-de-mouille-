@@ -1,4 +1,3 @@
-
 # Elkilani Narmin
 # Moualek Mohammed Nadjib
 
@@ -655,6 +654,9 @@ if __name__ == '__main__':
                                 a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion_joueur2(a_enlever)
                     pions_joueur2.remove(a_enlever)
+                    if choix_du_plateau == 2:
+                        if len(pions_joueur2)<=2:
+                            break
 
 
             else:
@@ -696,6 +698,9 @@ if __name__ == '__main__':
                                 a_enlever = tuple(int(x) for x in a_enlever.split(":"))
                     del_pion_joueur1(a_enlever)
                     pions_joueur1.remove(a_enlever)
+                    if choix_du_plateau == 2:
+                        if len(pions_joueur1)<=2:
+                            break
 
     # vérifiant si un des joueur est incapable de se déplacer(pas de positions adjacentes vides)
     if teste_si_joueur1_est_bloque():
@@ -706,6 +711,13 @@ if __name__ == '__main__':
         print("le joueur 2 est incapable de se déplacer")
         affichage(grill)
         print("le joueur 1 gagne ! ")
+    elif choix_du_plateau == 2 and (len(pions_joueur1)<=2 or len(pions_joueur2)<=2):
+        if len(pions_joueur1) <= 2:
+            affichage(grill)
+            print("Le joueur 2 a gagné ! ")
+        elif len(pions_joueur2) <= 2:
+            affichage(grill)
+            print("Le joueur 1 a gagné ! ")
 
     # phase 2
     else:
