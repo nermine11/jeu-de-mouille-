@@ -509,12 +509,12 @@ if __name__ == '__main__':
         nombre_du_pion_pour_chaque_joueur = 9
     elif choix_du_plateau == 2:
         nombre_du_pion_pour_chaque_joueur = 3
-        try:
+    try:
+        phase_3 = int(input("taper 1 si vous voulez jouer avec la phase 3, sinon taper 2: "))
+        while phase_3 not in [1, 2]:
             phase_3 = int(input("taper 1 si vous voulez jouer avec la phase 3, sinon taper 2: "))
-            while phase_3 not in [1, 2]:
-                phase_3 = int(input("taper 1 si vous voulez jouer avec la phase 3, sinon taper 2: "))
-        except:
-            phase_3 = int(input("taper 1 si vous voulez jouer avec la phase 3, sinon taper 2: "))
+    except:
+        phase_3 = int(input("taper 1 si vous voulez jouer avec la phase 3, sinon taper 2: "))
 
         if phase_3 == 1:
             phase_3 = False
